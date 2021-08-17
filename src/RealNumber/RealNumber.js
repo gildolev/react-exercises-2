@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState,useEffect } from 'react';
 import './RealNumber.css';
 
 function RealNumber() {
+	const [isNumber, setIsNumber] = useState(false);
+	const[value,setValue]=useState(null);
+
+	useEffect(() => {
+		setIsNumber(!isNaN(value));
+	},[value])
 	return (
 		<div className="RealNumber">
 			<p>
@@ -11,8 +17,9 @@ function RealNumber() {
 				"A13" - <span className="value--invalid">invalid</span>
 			</p>
 
-			<input type="text" className="text-box" />
-			<button>Submit</button>
+
+			<input type="text" className="text-box" onChange={e=>setValue(e.target.value)} value={value}/>
+			{isNumber && <button>Submit</button>}
 		</div>
 	)
 }
